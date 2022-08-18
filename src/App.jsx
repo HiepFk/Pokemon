@@ -15,6 +15,9 @@ function App() {
   const [nextUrl, setNextUrl] = useState("");
   const [preUrl, setPreUrl] = useState("");
   const [loading, setLoading] = useState(true);
+
+  const [text, setText] = useState("");
+
   useEffect(() => {
     const getPokemon = async () => {
       setLoading(true);
@@ -33,7 +36,7 @@ function App() {
   }
   return (
     <div>
-      <Header />
+      <Header text={text} setText={setText} setLink={setLink} />
       <Routes>
         <Route
           exact

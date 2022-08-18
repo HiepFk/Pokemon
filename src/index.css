@@ -11,3 +11,29 @@ body {
   margin: 0 auto;
   width: 95vw;
 }
+@layer components {
+  .btn_active {
+    @apply bg-amber-500 flex items-center justify-center w-20 h-8 rounded ml-1 mr-1 cursor-pointer;
+  }
+  .btn {
+    @apply bg-zinc-800 text-slate-400	flex items-center justify-center w-20 h-8 rounded ml-1 mr-1 cursor-not-allowed pointer-events-none;
+  }
+}
+.hp {
+  background: #ff0000;
+}
+.attack {
+  background: #f08030;
+}
+.defense {
+  background: #f8d030;
+}
+.special-attack {
+  background: #6890f0;
+}
+.special-defense {
+  background: #78c850;
+}
+.speed {
+  background: #f85888;
+}

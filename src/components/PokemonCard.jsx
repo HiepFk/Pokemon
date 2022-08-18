@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 function PokemonCard({ pokemon }) {
   const [name, setName] = useState("");
@@ -14,17 +15,24 @@ function PokemonCard({ pokemon }) {
     getPokemon();
   }, [pokemon.url]);
   return (
-    <div className="p-4 rounded-lg shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400">
+    <Link
+      to={`/${name}`}
+      state={pokemon.url}
+      className="p-4 rounded-lg shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400 "
+    >
       <div className="flex items-center	justify-between w-full font-semibold capitalize text-lg">
         <h1>{name}</h1>
         <p className="flex justify-center items-center rounded-full border w-11 h-11 shadow-md shadow-gray-100">
           #{id}
         </p>
       </div>
+
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
         alt=""
+        className="hover:scale-110 transition ease-in-out delay-200"
       />
+
       <div className="flex items-center justify-center">
         {types.map((type) => {
           return (
@@ -37,7 +45,7 @@ function PokemonCard({ pokemon }) {
           );
         })}
       </div>
-    </div>
+    </Link>
   );
 }
 
