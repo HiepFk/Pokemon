@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 import { Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PokemonList from "./components/PokemonList";
@@ -9,34 +9,36 @@ import PokemonDetail from "./components/PokemonDetail";
 import Loading from "./components/Loading";
 function App() {
   const [pokemons, setPokemons] = useState([]);
+  const [page, setPage] = useState(1);
   const [link, setLink] = useState(
-    "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20"
+    `https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`
   );
-  const [nextUrl, setNextUrl] = useState("");
-  const [preUrl, setPreUrl] = useState("");
+  const [totalPage, setTotalPage] = useState();
   const [loading, setLoading] = useState(true);
-
   const [text, setText] = useState("");
 
   useEffect(() => {
     const getPokemon = async () => {
       setLoading(true);
       const res = await axios.get(link);
-      setNextUrl(res.data.next);
-      setPreUrl(res.data.previous);
 
+      setLink(
+        `https://pokeapi.co/api/v2/pokemon?offset=${20 * page - 20}&limit=20`
+      );
       setPokemons(res.data.results);
+      setTotalPage(Math.round(res.data.count / 20));
       setLoading(false);
     };
     getPokemon();
-  }, [link]);
+  }, [link, page]);
 
   if (loading) {
     return <Loading />;
   }
+  console.log(link);
   return (
     <div>
-      <Header text={text} setText={setText} setLink={setLink} />
+      <Header text={text} setText={setText} />
       <Routes>
         <Route
           exact
@@ -44,13 +46,13 @@ function App() {
           element={
             <PokemonList
               pokemons={pokemons}
-              nextUrl={nextUrl}
-              preUrl={preUrl}
-              setLink={setLink}
+              setPage={setPage}
+              page={page}
+              totalPage={totalPage}
             />
           }
         />
-        <Route exact path="/:id" element={<PokemonDetail />} />
+        <Route exact path="/:name" element={<PokemonDetail />} />
       </Routes>
       <Footer />
     </div>

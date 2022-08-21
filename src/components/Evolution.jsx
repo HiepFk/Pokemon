@@ -1,58 +1,89 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import img from "../assets/arrow.png";
 function Evolution({ evolution }) {
   const { pokemon1, pokemon2, pokemon3 } = evolution;
-  console.log(evolution);
   return (
     <div className="flex flex-col justify-around items-center md:flex-row">
       <div className="flex flex-col justify-center items-center p-4 ">
-        <div className="rounded-full w-60  shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400">
-          <img
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon1?.url}.png`}
-            alt=""
-            className="p-6"
-          />
+        <div className="rounded-full w-40  shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400">
+          <Link to={`/${pokemon1?.name}`}>
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon1?.url}.png`}
+              alt=""
+              className="p-4"
+            />
+          </Link>
         </div>
         <div className="text-base	font-medium capitalize mt-2">
           {pokemon1?.name}
         </div>
       </div>
-      {pokemon2?.url && (
+      {pokemon2?.length > 0 && (
         <>
           <div>
             <img src={img} alt="" className="rotate-90 w-24 md:rotate-0" />
           </div>
-          <div className="flex flex-col justify-center items-center  p-4">
-            <div className="w-60 rounded-full shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400">
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon2?.url}.png`}
-                alt=""
-                className=" p-6"
-              />
-            </div>
-            <div className="text-base	font-medium capitalize mt-2">
-              {pokemon2?.name}
-            </div>
+          <div
+            className={
+              pokemon3?.length < 3 && pokemon2?.length < 4
+                ? "grid"
+                : "grid md:grid-cols-2"
+            }
+          >
+            {pokemon2.map((item) => {
+              return (
+                <div
+                  className="flex flex-col justify-center items-center  p-4"
+                  key={item?.url}
+                >
+                  <div className="w-40 rounded-full shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400">
+                    <Link to={`/${item.name}`}>
+                      <img
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${item?.url}.png`}
+                        alt=""
+                        className="p-4"
+                      />
+                    </Link>
+                  </div>
+                  <div className="text-base	font-medium capitalize mt-2">
+                    {item?.name}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </>
       )}
 
-      {pokemon3?.url && (
+      {pokemon3?.length > 0 && (
         <>
           <div>
             <img src={img} alt="" className="rotate-90 w-24 md:rotate-0" />
           </div>
-          <div className="flex flex-col justify-center items-center p-4">
-            <div className="w-60 rounded-full shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400">
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon3?.url}.png`}
-                alt=""
-                className=" p-6"
-              />
-            </div>
-            <div className="text-base	font-medium capitalize mt-2">
-              {pokemon3?.name}
-            </div>
+          <div className="grid">
+            {pokemon3.map((item) => {
+              return (
+                <div
+                  className="flex flex-col justify-center items-center p-4 "
+                  key={item?.url}
+                >
+                  <div className="w-40 rounded-full shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400">
+                    <Link to={`/${item?.name}`}>
+                      <img
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${item?.url}.png`}
+                        alt=""
+                        className="p-4"
+                      />
+                    </Link>
+                  </div>
+                  <div className="text-base	font-medium capitalize mt-2">
+                    {item?.name}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </>
       )}

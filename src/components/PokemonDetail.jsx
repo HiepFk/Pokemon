@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import Loading from "./Loading";
 import Stats from "./Stats";
 import Info from "./Info";
 import Evolution from "./Evolution";
 import { getEvolution } from "../apis/evolution";
-import axios from "axios";
 
 function PokemonDetail() {
-  const location = useLocation();
-  const link = location.state;
+  const { name } = useParams();
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
   const [evolution, setEvolution] = useState({});
@@ -17,12 +17,12 @@ function PokemonDetail() {
   useEffect(() => {
     const getPokemon = async () => {
       setLoading(true);
-      const res = await axios.get(link);
+      const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
       setData(res.data);
       setLoading(false);
     };
     getPokemon();
-  }, [link]);
+  }, [name]);
 
   useEffect(() => {
     if (data?.species?.url) {

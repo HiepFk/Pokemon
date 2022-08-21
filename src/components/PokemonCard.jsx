@@ -17,7 +17,6 @@ function PokemonCard({ pokemon }) {
   return (
     <Link
       to={`/${name}`}
-      state={pokemon.url}
       className="p-4 rounded-lg shadow-xl cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-green-500 hover:to-yellow-400 "
     >
       <div className="flex items-center	justify-between w-full font-semibold capitalize text-lg">
@@ -29,7 +28,7 @@ function PokemonCard({ pokemon }) {
 
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
-        alt=""
+        alt={name}
         className="hover:scale-110 transition ease-in-out delay-200"
       />
 

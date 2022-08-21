@@ -1,7 +1,13 @@
 import React from "react";
 
 function Stat({ item }) {
-  const col = Math.floor(item?.base_stat / 20);
+  let col = 0;
+  if (item?.base_stat >= 200) {
+    col = 10;
+  } else {
+    col = Math.floor(item?.base_stat / 20);
+  }
+
   return (
     <div>
       {Array.from(new Array(10 - col)).map((_, index) => {
