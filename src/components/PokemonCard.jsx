@@ -5,6 +5,8 @@ function PokemonCard({ pokemon }) {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [types, setType] = useState([""]);
+  const linkImg = process.env.REACT_APP_API_IMG;
+
   useEffect(() => {
     const getPokemon = async () => {
       const res = await axios.get(pokemon.url);
@@ -14,6 +16,7 @@ function PokemonCard({ pokemon }) {
     };
     getPokemon();
   }, [pokemon.url]);
+
   return (
     <Link
       to={`/${name}`}
@@ -27,7 +30,7 @@ function PokemonCard({ pokemon }) {
       </div>
 
       <img
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
+        src={`${linkImg}${id}.png`}
         alt={name}
         className="hover:scale-110 transition ease-in-out delay-200"
       />

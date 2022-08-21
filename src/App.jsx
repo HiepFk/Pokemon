@@ -10,9 +10,7 @@ import Loading from "./components/Loading";
 function App() {
   const [pokemons, setPokemons] = useState([]);
   const [page, setPage] = useState(1);
-  const [link, setLink] = useState(
-    `https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`
-  );
+  const [link, setLink] = useState(process.env.REACT_APP_API_LINK);
   const [totalPage, setTotalPage] = useState();
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState("");
@@ -21,7 +19,6 @@ function App() {
     const getPokemon = async () => {
       setLoading(true);
       const res = await axios.get(link);
-
       setLink(
         `https://pokeapi.co/api/v2/pokemon?offset=${20 * page - 20}&limit=20`
       );
@@ -35,13 +32,11 @@ function App() {
   if (loading) {
     return <Loading />;
   }
-  console.log(link);
   return (
     <div>
-      <Header text={text} setText={setText} />
+      <Header text={text} setText={setText} setPage={setPage} />
       <Routes>
         <Route
-          exact
           path="/"
           element={
             <PokemonList

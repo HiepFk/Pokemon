@@ -13,15 +13,16 @@ function PokemonDetail() {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
   const [evolution, setEvolution] = useState({});
-
+  const detailLink = process.env.REACT_APP_API_DETAIL;
   useEffect(() => {
     const getPokemon = async () => {
       setLoading(true);
-      const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+      const res = await axios.get(`${detailLink}${name}`);
       setData(res.data);
       setLoading(false);
     };
     getPokemon();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
   useEffect(() => {
@@ -33,6 +34,14 @@ function PokemonDetail() {
       getLink();
     }
   }, [data]);
+
+  const pathName = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathName]);
 
   if (loading) {
     return <Loading />;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import img from "../assets/logo_header.png";
-function Header({ text, setText }) {
+function Header({ text, setText, setPage }) {
   const navigate = useNavigate();
   const handeSearch = (e) => {
     e.preventDefault();
@@ -11,7 +11,7 @@ function Header({ text, setText }) {
 
   return (
     <div className="app w-full flex flex-col pt-6 pb-2 items-center justify-center md:justify-between md:flex-row ">
-      <Link to={"/"} className="w-1/3 mb-4 md:mb-0">
+      <Link to={"/"} className="w-1/3 mb-4 md:mb-0" onClick={() => setPage(1)}>
         <img src={img} alt="" className="w-full" />
       </Link>
       <form action="" className="w-2/3 md:w-1/3" onSubmit={handeSearch}>
